@@ -1,0 +1,298 @@
+
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>School Store</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+         body {
+            background: linear-gradient(135deg, #3498db, #e74c3c);
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            border-bottom: 2px solid #333333;
+            background: linear-gradient(135deg, #3498db, #7fb3d5, #e74c3c);
+            text-transform: uppercase;
+            padding: 10px 15px;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar-brand img {
+            max-height: 40px;
+        }
+
+        .navbar-dark .navbar-toggler-icon {
+            background-color: #ffffff;
+        }
+
+        .navbar-toggler {
+            border: none;
+            outline: none;
+        }
+
+        .navbar-toggler:hover {
+            background-color: #ffffff;
+        }
+
+        .navbar-nav {
+            align-items: center;
+        }
+
+        .navbar-nav .nav-link {
+            color: black !important;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: black !important;
+            text-decoration: underline;
+        }
+
+        .navbar-nav .nav-item.dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu {
+            background-color: white;
+        }
+
+        .dropdown-item {
+            color: black;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .dropdown-item:hover {
+            background-color: #555;
+        }
+
+     .hero-section {
+        position: relative;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-align: center;
+        overflow: hidden;
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)), url("{% static 'img/bannerimg.jpg' %}");
+        background-size: cover;
+        background-position: center;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)); /* Adjust the overlay color and transparency */
+        z-index: -1;
+    }
+
+    .hero-content {
+        z-index: 1;
+    }
+
+    .hero-heading {
+        font-size: 4em;
+        font-family: 'Pacifico';
+        color:  #3498db;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        margin-bottom: 20px;
+        opacity: 0;
+        animation: fadeUp 1s forwards 0.5s;
+    }
+
+    .hero-subheading {
+        font-size: 1.5em;
+        opacity: 0;
+        color: #e74c3c;
+        animation: fadeUp 1s forwards 1s;
+    }
+
+    @keyframes fadeUp {
+        from {
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+        .footer {
+            background: linear-gradient(135deg, #3498db, #7fb3d5, #e74c3c);
+            color: lightcyan;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 50px 0;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .footer-section {
+            flex-basis: calc(25% - 20px);
+        }
+
+        .footer-section h3 {
+            color: black;
+            font-family: 'Pacifico';
+            font-weight: bold;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding-left: 15;
+            padding-right: 15;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: lightcyan;
+        }
+
+        .footer-social {
+            margin-top: 20px;
+        }
+
+        .footer-social a {
+            color: lightcyan;
+            margin-right: 15px;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .footer-social a:hover {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">
+        <img src="{% static 'img/rsz_sslogo.png' %}" alt="School Store Logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+             <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Departments
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="https://en.wikipedia.org
+
+/wiki/Computer_science" target="_blank">Computer Science</a>
+                    <a class="dropdown-item" href="https://en.wikipedia.org/wiki/Biology" target="_blank">Biology</a>
+                    <a class="dropdown-item" href="https://en.wikipedia.org/wiki/Commerce" target="_blank">Commerce</a>
+                    <a class="dropdown-item" href="https://en.wikipedia.org/wiki/Humanities" target="_blank">Humanities</a>
+                    <a class="dropdown-item" href="https://en.wikipedia.org/wiki/Arts" target="_blank">Arts</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="contact/">Contact Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="about/">About Us</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="signup/">
+                    <i class="fas fa-user-plus signup-icon"></i>
+                    Sign Up
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="login/">
+                    <i class="fas fa-sign-in-alt login-icon"></i>
+                    Login
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="hero-background" style="background: url('{% static 'img/bannerimg.jpg' %}') center/cover no-repeat;"></div>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+        <h1 class="hero-heading">Welcome to our School Store</h1>
+        <p class="hero-subheading">Join the School Store community and unlock a world of educational resources.</p>
+    </div>
+</div>
+
+
+<!-- Footer Section -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>At School Store, we are dedicated to providing a seamless and convenient experience for all your educational needs. Our platform is designed to offer a curated selection of high-quality educational materials</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="#">Department</a></li>
+                    <li><a href="about/">About Us</a></li>
+                    <li><a href="contact/">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p>Trivandrum, Kerala</p>
+                <p>Email: schoolstore@gmail.com</p>
+                <p>Phone: 123 456 7890</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <ul class="footer-social">
+                    <li><a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="https://twitter.com/"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <center><p style="color:black;">&copy; 2023 School Store. All Rights Reserved.</p></center>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

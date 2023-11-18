@@ -1,0 +1,252 @@
+{% extends 'userbase.html' %}
+{% block style %}
+<style>
+    .form-container {
+    max-width: 400px; /* Set a maximum width for the form container */
+    margin: 0 auto; /* Center the form container horizontally */
+    margin-top:20px;
+    background-color: #fff; /* Set a background color for the form container */
+    padding: 20px; /* Add padding for spacing inside the form container */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow for depth */
+    border-radius: 8px; /* Add rounded corners to the form container */
+            margin: auto;
+        margin-top: 100px;
+}
+
+
+/* Apply general styles to the form */
+form {
+    max-width: 400px; /* Adjust the max-width to your preference */
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    padding: 20px; /* Add padding for spacing */
+    box-sizing: border-box;
+}
+
+/* Style form labels */
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Style text inputs and textareas */
+input[type="text"],
+input[type="date"],
+input[type="number"],
+input[type="tel"],
+input[type="email"],
+textarea {
+    width: calc(100% - 16px); /* Adjust width and consider padding */
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+/* Style radio and checkbox labels */
+input[type="radio"],
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+
+label[for="male"],
+label[for="female"],
+label[for="other"],
+label[for="notebook"],
+label[for="pen"],
+label[for="exam_paper"] {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+/* Style select dropdowns */
+select {
+    width: calc(100% - 16px); /* Adjust width and consider padding */
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+/* Style submit button */
+input[type="submit"] {
+    padding: 8px 16px; /* Reduced padding */
+        font-size: 16px; /* Reduced font size */
+    background-color: #e74c3c;
+        color: #fff;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+}
+
+
+input[type="submit"]:hover {
+     background-color: #c0392b;
+}
+
+
+
+
+    .order-confirmed {
+        background-color: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+        padding: 15px;
+        margin-top: 20px;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .return-link {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 8px 16px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+
+    }
+
+
+
+</style>
+{% endblock %}
+{% block content %}
+<div class="form-container">
+        <form action="" method="post">
+            {% csrf_token %}
+            <!-- Form fields -->
+           <label for="username">Username:</label>
+<input type="text" id="username" name="username" value="{{ user.username }}" readonly><br>
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br>
+
+            <label for="dob">DOB:</label>
+            <input type="date" id="dob" name="dob" required><br>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required><br>
+
+            <label>Gender:</label>
+<input type="radio" id="male" name="gender" value="male" checked>
+<label for="male">Male</label>
+
+<input type="radio" id="female" name="gender" value="female">
+<label for="female">Female</label>
+
+<input type="radio" id="other" name="gender" value="other">
+<label for="other">Other</label><br><br>
+
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br>
+
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" required></textarea><br>
+
+            <label for="department">Department:</label>
+            <select id="department" name="department" onchange="updateCourses()">
+                <option value="" disabled selected>Select</option>
+                <option value="computer_science">Computer Science</option>
+                <option value="biology">Biology</option>
+                <option value="commerce">Commerce</option>
+                <option value="humanities">Humanities</option>
+                <option value="arts">Arts</option>
+            </select><br>
+
+            <label for="course">Courses:</label>
+            <select id="course" name="course">
+                <!-- Courses will be dynamically updated based on selected department using JavaScript -->
+            </select><br>
+
+            <label for="purpose">Purpose:</label>
+            <select id="purpose" name="purpose">
+                <option value="" disabled selected>Select Purpose</option>
+                <option value="enquiry">For Enquiry</option>
+                <option value="order">Place Order</option>
+                <option value="return">Return</option>
+            </select><br>
+
+            <label for="materials">Materials:</label><br>
+            <input type="checkbox" id="notebook" name="materials" value="notebook">
+            <label for="notebook">Notebook</label>
+            <input type="checkbox" id="pen" name="materials" value="pen">
+            <label for="pen">Pen</label>
+            <input type="checkbox" id="exam_paper" name="materials" value="exam_paper">
+            <label for="exam_paper">Exam Papers</label><br>
+
+            <br>
+            <center><input type="submit" value="Submit"></center>
+        </form>
+ {% if order_confirmed %}
+            <div class="order-confirmed">
+                <p>{{ order_confirmed }}</p>
+                <a href="{% url 'storeapp:index' %}" class="return-link">Return to Home Page</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    function updateCourses() {
+        var departmentSelect = document.getElementById("department");
+        var courseSelect = document.getElementById("course");
+        var selectedDepartment = departmentSelect.value;
+
+        // Clear existing options
+        courseSelect.innerHTML = "";
+
+        // Add courses based on the selected department
+        switch (selectedDepartment) {
+            case "computer_science":
+                addOption(courseSelect, "bsc", "BSc");
+                addOption(courseSelect, "bca", "BCA");
+                addOption(courseSelect, "msc", "Msc");
+                break;
+
+            case "biology":
+                addOption(courseSelect, "bsc_bio", "BSc in Biology");
+                addOption(courseSelect, "msc_bio", "MSc in Biology");
+                addOption(courseSelect, "biotech", "Biotechnology");
+                break;
+
+            case "commerce":
+                addOption(courseSelect, "bcom", "BCom");
+                addOption(courseSelect, "bba", "BBA");
+                addOption(courseSelect, "mcom", "MCom");
+                break;
+
+            case "humanities":
+                addOption(courseSelect, "ba", "BA");
+                addOption(courseSelect, "ma", "MA");
+                addOption(courseSelect, "history", "History");
+                break;
+
+            case "arts":
+                addOption(courseSelect, "fine_arts", "Fine Arts");
+                addOption(courseSelect, "performing_arts", "Performing Arts");
+                addOption(courseSelect, "literature", "Literature");
+                break;
+
+            default:
+                // Handle default case or show an error
+                break;
+        }
+    }
+
+    function addOption(select, value, text) {
+        var option = document.createElement("option");
+        option.value = value;
+        option.text = text;
+        select.add(option);
+    }
+</script>
+{% endblock %}

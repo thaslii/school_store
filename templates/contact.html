@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+contact
+{% endblock %}
+
+{% block style %}
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+
+}
+
+.contact-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+}
+
+.contact-info, .contact-form {
+  padding: 40px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.contact-info, .p{
+color:white;
+}
+.contact-info h2, .contact-form h2 {
+     text-align: center;
+       color: #e74c3c;
+        font-size: 36px;
+    font-weight: bold;
+
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    letter-spacing:1px;
+
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+.info-list {
+  list-style: none;
+  padding: 0;
+
+}
+
+.info-list li {
+  margin-bottom: 10px;
+  color:white;
+}
+
+
+.contact-form form {
+  display: grid;
+  gap: 20px;
+}
+
+
+.contact-form input, .contact-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: inherit;
+}
+
+.contact-form textarea {
+  resize: vertical;
+}
+
+.contact-form button {
+   padding: 8px 16px;
+        font-size: 16px;
+  background-color: #c0392b;
+        color: #fff;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+}
+
+
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+  .contact-section {
+    flex-direction: column;
+  }
+  .contact-info, .contact-form {
+    margin-bottom: 20px;
+  }
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="contact-section">
+  <div class="contact-info">
+    <h2>Contact Us</h2>
+    <p>Feel free to reach out to us for any inquiries or collaboration opportunities.</p>
+    <ul class="info-list">
+      <li><strong>Email:</strong> schoolstore@gmail.com</li>
+      <li><strong>Phone:</strong>123 456 7890</li>
+      <li><strong>Address:</strong> Trivandrum, Kerala</li>
+    </ul>
+  </div>
+  <div class="contact-form">
+    <h2>Get in Touch</h2>
+    <form action="/contact/" method="POST">
+          {% csrf_token %}
+
+      <input type="text" name="name" placeholder="Your Name">
+      <input type="email" name="email" placeholder="Your Email">
+      <textarea name="message" placeholder="Your Message"></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+

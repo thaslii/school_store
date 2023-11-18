@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Register{% endblock %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+{% block style %}
+<style>
+    .register-container {
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        margin: auto;
+        margin-top: 100px;
+    }
+
+    .register-container h2 {
+        text-align: center;
+       color: #e74c3c;
+        font-size: 36px;
+    font-weight: bold;
+
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    letter-spacing:1px;
+
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .register-container form {
+        margin-top: 20px;
+    }
+
+    .register-container form label {
+        font-weight: bold;
+        color: #fff;
+    }
+
+    .register-container form input[type="text"],
+    .register-container form input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        box-sizing: border-box;
+    }
+
+    .register-container form input[type="submit"] {
+       padding: 8px 16px;
+        font-size: 16px;
+  background-color: #e74c3c;
+        color: #fff;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+ .register-container form input[type="submit"]:hover {
+        background-color: #c0392b;
+    }
+
+
+    .register-container .login-link {
+        text-align: center;
+        margin-top: 15px;
+        color: #fff;
+    }
+
+    .register-container .login-link a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .register-container .login-link a:hover {
+        text-decoration: underline;
+    }
+
+
+</style>
+{% endblock %}
+{% block content %}
+<div class="register-container">
+    <h2>Sign Up</h2>
+
+    <form action="{% url 'storeapp:signup' %}" method="POST">
+        {% csrf_token %}
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="confirm_password">Confirm Password:</label>
+        <input type="password" id="confirm_password" name="confirm_password" required>
+        {% if messages %}
+        {% for message in messages %}
+
+        <p class="error-message" style="color: red;">{{ message }}</p>
+
+        {% endfor %}
+    {% endif %}
+<br><br>
+
+       <center> <input type="submit" value="Sign Up"></center>
+    </form>
+
+    <div class="login-link">
+        Already have an account? <a href="{% url 'storeapp:login' %}">Login here</a>
+    </div>
+</div>
+{% endblock %}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
